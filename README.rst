@@ -15,7 +15,7 @@
 
 .. class:: center
 
-    :Название исследуемой задачи: : Post Training Quantization. Flexible continuous modification for SOTA post training quantization methods to make them lossless.
+    :Название исследуемой задачи: Post Training Quantization. Flexible continuous modification for SOTA post training quantization methods to make them lossless.
     :Тип научной работы: M1P
     :Автор: Седова Анна
     :Научный руководитель: Жариков Илья
