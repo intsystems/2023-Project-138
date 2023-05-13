@@ -189,6 +189,7 @@ if __name__ == '__main__':
     parser.add_argument('--quantize_clipped', action='store_true')
     parser.add_argument('--use_basic_quantization', action='store_true')
     parser.add_argument('--additional_levels_num', default=15, type=int)
+    parser.add_argument('--output_dir', type=str, default='checkpoints')
     args = parser.parse_args()
 
     seed_all(args.seed)
@@ -262,6 +263,10 @@ if __name__ == '__main__':
         set_act_quantize_params(qnn, cali_data=cali_data, awq=args.awq, order=args.order)
 
     qnn.set_quant_state(weight_quant=True, act_quant=args.act_quant)
+
+    if args.output_dir is not None:
+        path = args.output_dir + f"/checkpoint_arch{args.arch}_w{args.n_bits_w}_a{args.n_bits_a}_add{args.additional_levels_num}.pth"
+        torch.save(qnn, path)
     
     print('Full quantization (W{}A{}) accuracy: {}'.format(args.n_bits_w, args.n_bits_a,
                                                            validate_model(test_loader, qnn)))

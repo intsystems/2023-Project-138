@@ -78,7 +78,7 @@ class UniformAffineQuantizer(nn.Module):
         '''for additional quantization'''
         self.quantize_clipped = is_cnn and quantize_clipped
         self.additional_levels_num = additional_levels_num
-        if self.quantize_clipped:
+        if self.quantize_clipped and self.n_bits < 8:
             self.n_levels += additional_levels_num
 
 
@@ -226,7 +226,7 @@ class UniformAffineQuantizer(nn.Module):
         assert 2 <= refactored_bit <= 8, 'bitwidth not supported'
         self.n_bits = refactored_bit
         self.n_levels = 2 ** self.n_bits
-        if self.quantize_clipped:
+        if self.quantize_clipped and self.n_bits < 8:
             self.n_levels += self.additional_levels_num
 
     @torch.jit.export
